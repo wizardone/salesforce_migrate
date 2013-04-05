@@ -1,0 +1,33 @@
+PATH
+  remote: .
+  specs:
+    sf_migrate (1.0.1)
+      activesupport (~> 3.2.6)
+      databasedotcom_emp (~> 1.3.1)
+      sugarcrm_emp (~> 0.10.1)
+
+GEM
+  remote: http://www.rubygems.org/
+  specs:
+    activesupport (3.2.6)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    databasedotcom_emp (1.3.1)
+      json
+      multipart-post (~> 1.1)
+    httpclient (2.2.5)
+    i18n (0.6.0)
+    json (1.7.3)
+    multi_json (1.3.6)
+    multipart-post (1.1.5)
+    sugarcrm_emp (0.10.1)
+      activesupport (>= 2.3.10)
+      httpclient (>= 2.2.5)
+      i18n
+      json
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  sf_migrate!

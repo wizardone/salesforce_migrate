@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+# $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require "pathname"
+bin_file = Pathname.new(__FILE__).realpath
+
+$LOAD_PATH.unshift File.expand_path("../../lib", bin_file)
+require 'sf_migrate'
+
+SalesforceMigration::Runner.start
