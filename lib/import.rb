@@ -282,9 +282,8 @@ module SalesforceMigration
     # Create the actual records and users in SugarCRM. Populates the var_pool
     def create_sugar_record(module_type, record, type)
       record = convert_string_to_datetime(record)
-      puts "Record: #{record }"
+
       obj = module_type.new(record)
-      puts "Object: #{obj }"
       obj.save!
       obj = create_association(obj, type) unless %(email payment_method).include? type
       create_security_group_iso obj if type == 'iso'

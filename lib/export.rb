@@ -58,7 +58,7 @@ module SalesforceMigration
     # our SugarCRM instance.
     # Note that on Mac we don`t need this method.
     def remove_quotes(field)
-      field.gsub(/'/, "") if field.is_a? String
+      field.gsub(/'/, "").strip if field.is_a? String
     end
     
 

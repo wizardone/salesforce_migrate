@@ -7,7 +7,7 @@ module SalesforceMigration
     PAYMENT_METHODS_FIELDS  = %w{Accounts__c Business_Contact__c Business_Type_Coments__c Business_type__c Buy_Rates__c Chargeback_Comments__c Chargeback__c Client_Integration__c Countries2__c Countries__c CreatedBy CreatedById CreatedDate CurrencyIsoCode Id Integration__c LastModifiedBy LastModifiedById LastModifiedDate Name Our_Buy_Rates__c Owner OwnerId Proccessing_Currency__c Processing_Currency__c Rebilling_Comments__c Rebilling__c Refund_Comments__c Refund__c Release_Date__c Settlement_Currency__c Settlement_Cycle__c Settlement__c Tech_Contact__c Type__c V_terminal_Comments__c V_terminal__c}
     BANKS_FIELDS            = %w{Account_Number__c BIC_Code__c Merchant_2__c Bank_Address__c Bank_Name__c Contract__c CreatedBy CreatedById CreatedDate CurrencyIsoCode Holder_Address__c IBAN__c Id LastActivityDate LastModifiedBy LastModifiedById LastModifiedDate Name Owner OwnerId Processing_Currency__c Routing_Number__c SWIFT__c Settlement_Currency__c}
     MERCHANTTOAPM_FIELDS    = %w{Merchant__c Payment_Methods__c}
-    CCRMBASIC__EMAIL_FIELDS = %w{ccrmbasic__To__c ccrmbasic__Cc__c ccrmbasic__Body__c Agent__c Id Name}
+    CCRMBASIC__EMAIL_FIELDS = %w{ccrmbasic__To__c ccrmbasic__Cc__c ccrmbasic__Body__c Id Name}
     EMAIL_ASSOCIATION_FIELDS= %w{Merchant_Name__c Email__c}
     SYSTEM_FIELDS           = %w{id owner ownerid createddate createdby createdbyid lastactivitydate lastmodifieddate lastmodifiedby lastmodifiedbyid recruiter region}
   end

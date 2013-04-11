@@ -6,11 +6,7 @@ module SalesforceMigration
     
     def initialize(options)
       credentials = YAML.load_file(options[:config_file])
-      url      = credentials['sugar_url']
-      username = credentials['sugar_username']
-      password = credentials['sugar_password']
-      
-      @sugarcrm_namespace = ::SugarCRM.connect(url, username, password)
+
       @template = "Welcome to Emerchantpay Agent Portal"
       @logger = SalesforceMigration::Runner::create_logger
       
@@ -35,7 +31,7 @@ module SalesforceMigration
     #Search the agent portal database for all users, who are inactive
     #This is the script, that activates them
     def start
-      inactive_users = @sugarcrm_namespace::User.find_all_by_status('Inactive')
+      inactive_users = SugarCRM::User.find_all_by_status('Inactive')
 
       if inactive_users
         inactive_users.each do |user|
@@ -44,7 +40,7 @@ module SalesforceMigration
           plain_password = generate_password
           hash_password = Digest::MD5.hexdigest plain_password
           
-          sm = send_mail(user.email1, user.last_name, plain_password)
+          sm = send_mail(user.email1, user.user_name, plain_password)
           if sm
             query = "UPDATE users SET user_hash='#{hash_password}', status='Active' WHERE id='#{user.id}'"
             ActiveRecord::Base.connection.execute(query);
@@ -58,12 +54,12 @@ module SalesforceMigration
     #Send the welcoming email to the user
     #We need the welcoming text
     #@param [String] the email address
-    def send_mail(email, last_name, password)
+    def send_mail(email, username, password)
       mail = Mail.new do
         from    'agent_portal@emerchantpay.com'
         to      email
         subject 'Welcome to Emerchantpay Agent Portal'
-        body    "Your username is #{last_name} and your password is #{password}"
+        body    "Your username is #{username} and your password is #{password}"
       end
       mail.delivery_method :smtp, {:address        => "emp-ldn-exch01.emp.internal.com",
                                    :port           => 25,

@@ -30,35 +30,34 @@ module SalesforceMigration
 			create_logger
 			optparse = OptionParser.new do |opts|
 				opts.banner = "Usage: sf_migrate [options]"
-				opts.on("-a", "--action NAME", "") do |action|
+				opts.on("-a", "--action NAME", "Start the initial_run or the daily update") do |action|
 					options[:action] = action
 				end
-				opts.on("-f", "--config_file CONFIG_FILE", "") do |f|
+				opts.on("-f", "--config_file CONFIG_FILE", "Supply an optional config file") do |f|
 					options[:config_file] = File.expand_path(f) if File.exists? f
 				end 
-				opts.on("-c", "--csv_dir CSV_DIR", "") do |c|
+				opts.on("-c", "--csv_dir CSV_DIR", "Set the directory in which exported csv from Salesforce will be kept") do |c|
 					options[:csv_dir] = c
 				end
-				opts.on("-l", "--log_dir LOG_DIR", "") do |l|
+				opts.on("-l", "--log_dir LOG_DIR", "Set the directory in which the logger will reside") do |l|
 					options[:log_dir] = l
 				end
-				opts.on("-m", "--send_mail SEND_MAIL", "") do |m|
+				opts.on("-m", "--send_mail", "Send activation email to every new user") do |m|
 					options[:send_mail] = m
 				end
+				opts.on( '-h', '--help', 'Display this screen' ) do
+             puts opts
+             exit
+        end
 			end
 			optparse.parse!
-			if options[:action].nil?
-				puts optparse
-				exit
-			else
 				begin
 					SalesforceMigration::Export.new(options)
 					SalesforceMigration::Import.new(options)
-					SalesforceMigration::Mailer.new(options)
+					SalesforceMigration::Mailer.new(options) if options[:send_mail]
 				rescue => e
 	      	@logger.error(e)
 				end
-			end
 		end
 		
 		def create_logger
